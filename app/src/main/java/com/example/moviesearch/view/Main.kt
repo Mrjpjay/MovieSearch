@@ -1,7 +1,5 @@
 package com.example.moviesearch.view
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,11 +15,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.moviesearch.R
 import com.example.moviesearch.api.data.Movie
 import com.example.moviesearch.viewmodel.MovieViewModel
@@ -37,23 +36,28 @@ fun MovieList() {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun MovieCard(movie: Movie) {
     Card(
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
         modifier = Modifier
-            .padding(12.dp)
+            .padding(1.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(12.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+            GlideImage(
+                model = movie.poster,
                 contentDescription = "movie poster",
                 modifier = Modifier
                     .wrapContentHeight()
@@ -77,6 +81,12 @@ fun MovieCard(movie: Movie) {
 
 @Preview()
 @Composable
-fun Preview(){
-    MovieCard(movie = Movie("Pablito","El Mejor"))
+fun Preview() {
+    MovieCard(
+        movie = Movie(
+            "Pablito",
+            "El Mejor",
+            "${R.drawable.ic_launcher_background}"
+        )
+    )
 }

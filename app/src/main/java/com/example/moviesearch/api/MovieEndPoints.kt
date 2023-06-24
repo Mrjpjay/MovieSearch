@@ -1,6 +1,6 @@
 package com.example.moviesearch.api
 
-import com.example.moviesearch.api.data.MovieResponse
+import com.example.moviesearch.POSTER_PARAM
 import com.example.moviesearch.api.data.MovieResult
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -13,6 +13,7 @@ interface MovieEndPoints {
     @GET("3/search/movie")
     fun searchMovie(@Query("api_key") apiKey: String, @Query("query") movie: String): Call<MovieResult>
 
-    @GET("t/p/w600_and_h900_bestv2/")
+    @GET(POSTER_PARAM)
     fun getPoster(@Path("poster") poster: String): Call<ResponseBody>
+
 }

@@ -7,5 +7,6 @@ data class MovieResult(
 )
 data class MovieResponse(
     @SerializedName("original_title") val title: String,
-    @SerializedName("overview") val description: String
+    @SerializedName("overview") val description: String,
+    @SerializedName("poster_path") val posterPath: String? = ""
 )
