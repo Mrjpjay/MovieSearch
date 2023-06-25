@@ -23,19 +23,29 @@ class MovieViewModel @Inject constructor(
     private val _list = MutableStateFlow(listOf<Movie>())
     val list = _list.asStateFlow()
 
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading
+
     init {
         searchMovie("Harry Potter")
     }
     fun searchMovie(movie: String){
+        _loading.value = true
         viewModelScope.launch {
             repo.searchMovie(movie,object : MovieRepoImpl.MovieListener{
                 override fun onSuccess(list: List<Movie>) {
                     _list.value = list
+                    _loading.value = false
                 }
 
                 override fun onError(e: String) {
+                    _loading.value = false
                 }
             })
         }
+    }
+
+    fun clearList() {
+        _list.value = emptyList()
     }
 }
